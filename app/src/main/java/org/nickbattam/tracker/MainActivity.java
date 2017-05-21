@@ -26,6 +26,7 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.ChartTouchListener;
 import com.github.mikephil.charting.listener.OnChartGestureListener;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.github.mikephil.charting.renderer.MultiLineXAxisRenderer;
 
 import org.nickbattam.tracker.datasource.IDataSource;
 import org.nickbattam.tracker.datasource.SimpleDataProvider;
@@ -98,6 +99,7 @@ public class MainActivity extends AppCompatActivity implements
         xaxis.setGranularityEnabled(true);
         xaxis.setValueFormatter(new DateTimeAxisValueFormatter());
 
+        mChart.setXAxisRenderer(new MultiLineXAxisRenderer(mChart.getRendererXAxis()));
 
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
