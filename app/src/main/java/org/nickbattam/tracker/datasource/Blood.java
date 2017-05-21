@@ -10,7 +10,7 @@ import java.text.SimpleDateFormat;
  * Created by nick on 21/05/17.
  */
 
-public class Blood {
+public class Blood implements ITrackerData {
     public static long BASE_DATETIME = 1483228800L;  // Sun  1 Jan 00:00:00 GMT 2017
     private static final SimpleDateFormat mFormat = Blood.buildParser();
     private float blood;
@@ -35,6 +35,11 @@ public class Blood {
         symbols.setAmPmStrings(new String[] { "a.m.", "p.m."});
         format.setDateFormatSymbols(symbols);
         return format;
+    }
+
+    @Override
+    public String toString() {
+        return getDatetime() + ": " + getBlood() + "\n";
     }
 
     public float getBlood() {

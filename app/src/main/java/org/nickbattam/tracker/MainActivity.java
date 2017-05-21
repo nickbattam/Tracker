@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-//import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -29,6 +28,7 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.renderer.MultiLineXAxisRenderer;
 
 import org.nickbattam.tracker.datasource.IDataSource;
+import org.nickbattam.tracker.datasource.OnTrackDataProvider;
 import org.nickbattam.tracker.datasource.SimpleDataProvider;
 import org.nickbattam.tracker.formatter.DateTimeAxisValueFormatter;
 
@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         // To make full screen layout
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -57,8 +58,11 @@ public class MainActivity extends AppCompatActivity implements
         mChart.setOnChartValueSelectedListener(this);
 
         // add data
-        provider = new SimpleDataProvider();
+        String filename = "/home/nick/Downloads/export_21_05_2017-12_36_56_9650.csv";
+        provider = new OnTrackDataProvider(filename);
         setData();
+//        provider = new SimpleDataProvider();
+//        setData();
 
         // get the legend (only possible after setting data)
         Legend l = mChart.getLegend();
@@ -94,21 +98,12 @@ public class MainActivity extends AppCompatActivity implements
 
         leftAxis.setDrawZeroLine(true);
 
+        mChart.setXAxisRenderer(new MultiLineXAxisRenderer(mChart.getRendererXAxis()));
         XAxis xaxis = mChart.getXAxis();
         xaxis.setGranularity(24000f);
         xaxis.setGranularityEnabled(true);
         xaxis.setValueFormatter(new DateTimeAxisValueFormatter());
 
-        mChart.setXAxisRenderer(new MultiLineXAxisRenderer(mChart.getRendererXAxis()));
-
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
     }
 
     @Override
@@ -128,6 +123,11 @@ public class MainActivity extends AppCompatActivity implements
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        }
+        else if (id == R.id.action_import) {
+            String filename = "/home/nick/Downloads/export_21_05_2017-12_36_56_9650.csv";
+            provider = new OnTrackDataProvider(filename);
+            setData();
         }
 
         return super.onOptionsItemSelected(item);

@@ -5,7 +5,6 @@ import com.github.mikephil.charting.data.Entry;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 
@@ -41,7 +40,7 @@ public class SimpleDataProvider implements IDataSource {
             new Blood("1 Feb 2017 2:28:07 p.m.", 3.4f)
     ));
 
-    List<Entry> entries;
+    private List<Entry> entries;
 
     public SimpleDataProvider() {
         entries = buildData(rawData);
@@ -67,12 +66,4 @@ public class SimpleDataProvider implements IDataSource {
         return new Entry(b.getShiftedDatetime(), b.getBlood());
     }
 
-    class EntryComparator implements Comparator<Entry>
-    {
-        public int compare(Entry o1, Entry o2) {
-            Float change1 = Float.valueOf(o1.getX());
-            Float change2 = Float.valueOf(o2.getX());
-            return change1.compareTo(change2);
-        }
-    }
 }
