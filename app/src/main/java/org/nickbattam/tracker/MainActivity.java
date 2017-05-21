@@ -70,31 +70,34 @@ public class MainActivity extends AppCompatActivity implements
         // enable touch gestures
         mChart.setTouchEnabled(true);
 
-//        LimitLine upper_limit = new LimitLine(8f, "Upper Limit");
-//        upper_limit.setLineWidth(2f);
-//        upper_limit.enableDashedLine(10f, 10f, 0f);
-//        upper_limit.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
-//        upper_limit.setTextSize(10f);
-//
-//        LimitLine lower_limit = new LimitLine(4f, "Lower Limit");
-//        lower_limit.setLineWidth(2f);
-//        lower_limit.enableDashedLine(10f, 10f, 0f);
-//        lower_limit.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_BOTTOM);
-//        lower_limit.setTextSize(10f);
-//
-//        YAxis leftAxis = mChart.getAxisLeft();
-//        leftAxis.removeAllLimitLines();
-//        leftAxis.addLimitLine(upper_limit);
-//        leftAxis.addLimitLine(lower_limit);
-//        leftAxis.setDrawZeroLine(true);
-
-//        // ftAxis.setDrawLimitLinesBehindData(true);
-
         mChart.getAxisRight().setEnabled(false);
 
-//        XAxis xaxis = mChart.getXAxis();
-//        xaxis.setGranularityEnabled(true);
-//        xaxis.setValueFormatter(new DateTimeAxisValueFormatter());
+        LimitLine upper_limit = new LimitLine(8f, "Upper Limit");
+        upper_limit.setLineWidth(2f);
+        upper_limit.enableDashedLine(10f, 10f, 0f);
+        upper_limit.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
+        upper_limit.setTextSize(10f);
+
+        LimitLine lower_limit = new LimitLine(4f, "Lower Limit");
+        lower_limit.setLineWidth(2f);
+        lower_limit.enableDashedLine(10f, 10f, 0f);
+        lower_limit.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_BOTTOM);
+        lower_limit.setTextSize(10f);
+
+        YAxis leftAxis = mChart.getAxisLeft();
+        leftAxis.removeAllLimitLines();
+        leftAxis.addLimitLine(upper_limit);
+        leftAxis.addLimitLine(lower_limit);
+
+        leftAxis.setDrawLimitLinesBehindData(true);
+
+        leftAxis.setDrawZeroLine(true);
+
+        XAxis xaxis = mChart.getXAxis();
+        xaxis.setGranularity(24000f);
+        xaxis.setGranularityEnabled(true);
+        xaxis.setValueFormatter(new DateTimeAxisValueFormatter());
+
 
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
@@ -202,14 +205,14 @@ public class MainActivity extends AppCompatActivity implements
         List<Entry> vals = provider.getData();
 
         LineDataSet dataset = new LineDataSet(vals, "Bloods");
-//        dataset.setFillAlpha(110);
-//        dataset.setColor(Color.BLACK);
-//        dataset.setCircleColor(Color.BLACK);
-//        dataset.setLineWidth(1f);
-//        dataset.setCircleRadius(3f);
-//        dataset.setDrawCircleHole(false);
-//        dataset.setValueTextSize(9f);
-//        dataset.setDrawFilled(true);
+        dataset.setFillAlpha(110);
+        dataset.setColor(Color.BLACK);
+        dataset.setCircleColor(Color.BLACK);
+        dataset.setLineWidth(1f);
+        dataset.setCircleRadius(3f);
+        dataset.setDrawCircleHole(false);
+        dataset.setValueTextSize(9f);
+        dataset.setDrawFilled(true);
 
         // set data
         mChart.setData(new LineData(dataset));
