@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.github.mikephil.charting.data.Entry;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,24 +29,30 @@ public class OnTrackDataProvider implements IDataSource {
     @Override
     public List<Entry> getData() {
         if (entries == null) {
+            Log.i("OnTrackParse", "Building data");
             entries = buildData();
         }
+        Log.i("OnTrackParse", "List contains " + entries.size() + "elements");
         return entries;
     }
 
     private List<Entry> buildData() {
-        List<Entry> entries = null;
+        List<Entry> entries = new ArrayList<>();
         try {
             List<ITrackerData> data = new OnTrackExportParser().parse(fileDir, filename);
             for (ITrackerData d : data) {
                 if (d instanceof Blood) {
                     entries.add(createEntry((Blood)d));
                 }
+                else {
+                    Log.w("OnTrackParse", "Ignoring" + d.getClass());
+                }
+
             }
-            Collections.sort(entries, new EntryComparator());
         } catch(IOException ex) {
             Log.e("OnTrackParse", "Error parsing export file", ex);
         }
+        Collections.sort(entries, new EntryComparator());
         return entries;
     }
 
