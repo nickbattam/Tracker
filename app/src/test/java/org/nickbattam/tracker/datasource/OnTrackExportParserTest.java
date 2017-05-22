@@ -8,6 +8,7 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
+import java.io.File;
 import java.util.List;
 import static org.junit.Assert.assertTrue;
 
@@ -26,7 +27,7 @@ public class OnTrackExportParserTest {
     @Test
     public void parser_returns_list_of_Bloods() throws Exception {
         OnTrackExportParser parser = new OnTrackExportParser();
-        List<ITrackerData> data = parser.parse(EXPORT_FILEPATH);
+        List<ITrackerData> data = parser.parse(new File("/"),  EXPORT_FILEPATH);
         assertTrue(data.size()>0);
     }
 }
