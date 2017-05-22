@@ -42,9 +42,6 @@ public class SimpleDataProvider implements IDataSource {
 
     private List<Entry> entries;
 
-    public SimpleDataProvider() {
-        entries = buildData(rawData);
-    }
 
     private List<Entry> buildData(List<Blood> raw) {
 
@@ -59,6 +56,9 @@ public class SimpleDataProvider implements IDataSource {
 
     @Override
     public List<Entry> getData() {
+        if (entries == null) {
+            entries = buildData(rawData);
+        }
         return entries;
     }
 
