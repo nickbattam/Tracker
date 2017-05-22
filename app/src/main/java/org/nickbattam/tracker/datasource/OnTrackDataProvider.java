@@ -15,10 +15,13 @@ import java.util.List;
 
 public class OnTrackDataProvider implements IDataSource {
 
+    private File fileDir;
     private String filename;
     private List<Entry> entries;
 
-    public OnTrackDataProvider(String filename) {
+    public OnTrackDataProvider(File filesDir, String filename) {
+        Log.i("OnTrackDataProvider", "FileDir: " + filesDir.getAbsolutePath());
+        this.fileDir = filesDir;
         this.filename = filename;
     }
 
@@ -33,8 +36,7 @@ public class OnTrackDataProvider implements IDataSource {
     private List<Entry> buildData() {
         List<Entry> entries = null;
         try {
-            List<ITrackerData> data = new OnTrackExportParser().parse(filename);
-            entries = new ArrayList<>();
+            List<ITrackerData> data = new OnTrackExportParser().parse(fileDir, filename);
             for (ITrackerData d : data) {
                 if (d instanceof Blood) {
                     entries.add(createEntry((Blood)d));

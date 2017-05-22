@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity implements
         OnChartGestureListener,
         OnChartValueSelectedListener {
 
-    private IDataSource provider;
     private LineChart mChart;
 
     @Override
@@ -57,12 +56,10 @@ public class MainActivity extends AppCompatActivity implements
         mChart.setOnChartGestureListener(this);
         mChart.setOnChartValueSelectedListener(this);
 
-        // add data
-        String filename = "/home/nick/Downloads/export_21_05_2017-12_36_56_9650.csv";
-        provider = new OnTrackDataProvider(filename);
-        setData();
-//        provider = new SimpleDataProvider();
-//        setData();
+        // add data: this file has been copied to /data/user/0/org.nickbattam.tracker/files
+//        String filename = "export_21_05_2017-12_36_56_9650.csv";
+//        setData(new OnTrackDataProvider(getApplicationContext().getFilesDir(), filename));
+        setData(new SimpleDataProvider());
 
         // get the legend (only possible after setting data)
         Legend l = mChart.getLegend();
@@ -126,8 +123,7 @@ public class MainActivity extends AppCompatActivity implements
         }
         else if (id == R.id.action_import) {
             String filename = "/home/nick/Downloads/export_21_05_2017-12_36_56_9650.csv";
-            provider = new OnTrackDataProvider(filename);
-            setData();
+            setData(new OnTrackDataProvider(getApplicationContext().getFilesDir(), filename));
         }
 
         return super.onOptionsItemSelected(item);
@@ -203,7 +199,7 @@ public class MainActivity extends AppCompatActivity implements
         Log.i("Nothing selected", "Nothing selected.");
     }
 
-    private void setData() {
+    private void setData(IDataSource provider) {
         List<Entry> vals = provider.getData();
 
         LineDataSet dataset = new LineDataSet(vals, "Bloods");

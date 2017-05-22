@@ -5,6 +5,7 @@ import android.util.Log;
 import com.github.mikephil.charting.data.Entry;
 import com.opencsv.CSVReader;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,14 +21,14 @@ import java.util.List;
  *      3007,"1 Feb 2017 2:36:37 p.m.",Food,,Breakfast,20.0,"Apple"
  *      3006,"1 Feb 2017 2:28:07 p.m.",Glucose,,Breakfast,3.4,""
  */
-public class OnTrackExportParser {
+class OnTrackExportParser {
 
-    List<ITrackerData> parse(String filename) throws IOException {
+    List<ITrackerData> parse(File fileDir, String filename) throws IOException {
 
         List<ITrackerData> data = new ArrayList<>();
 
         try (
-            FileReader fr = new FileReader(filename);
+            FileReader fr = new FileReader(new File(fileDir, filename));
             CSVReader reader = new CSVReader(fr, ',')
         ) {
             // read line by line
