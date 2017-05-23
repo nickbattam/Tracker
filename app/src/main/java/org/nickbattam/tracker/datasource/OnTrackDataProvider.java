@@ -3,6 +3,7 @@ package org.nickbattam.tracker.datasource;
 import android.util.Log;
 
 import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.utils.EntryXComparator;
 
 import java.io.File;
 import java.io.IOException;
@@ -52,7 +53,7 @@ public class OnTrackDataProvider implements IDataSource {
         } catch(IOException ex) {
             Log.e("OnTrackParse", "Error parsing export file", ex);
         }
-        Collections.sort(entries, new EntryComparator());
+        Collections.sort(entries, new EntryXComparator());
         return entries;
     }
 

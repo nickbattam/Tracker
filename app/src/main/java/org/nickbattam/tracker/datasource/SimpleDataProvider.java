@@ -1,6 +1,7 @@
 package org.nickbattam.tracker.datasource;
 
 import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.utils.EntryXComparator;
 
 import java.util.Arrays;
 import java.util.ArrayList;
@@ -50,7 +51,7 @@ public class SimpleDataProvider implements IDataSource {
         for (Blood b : raw) {
             data.add(createEntry(b));
         }
-        Collections.sort(data, new EntryComparator());
+        Collections.sort(data, new EntryXComparator());
         return data;
     }
 
